@@ -41,11 +41,13 @@ export const metadata: Metadata = {
     title: "Hacamat ve Sülük Eğitimi | Ebusadullah Akademi",
     description:
       "Hacamat ve sülük terapisi uzmanlık eğitimleri: çevrimiçi teorik modüller + Konya'da yüz yüze uygulama kampı.",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Ebusadullah Akademi — Hacamat ve Sülük Eğitim Programları" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Hacamat ve Sülük Eğitimi | Ebusadullah Akademi",
     description: "Çevrimiçi teorik modüller + Konya'da yüz yüze uygulama kampı.",
+    images: ["/og.png"],
   },
   robots: { index: true, follow: true },
 };

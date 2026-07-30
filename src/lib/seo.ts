@@ -23,7 +23,9 @@ export function pageMeta(opts: {
       description: opts.description,
       url: canonical,
       type: "website",
-      images: [{ url: "/og.svg", width: 1200, height: 630, alt: opts.title }],
+      // OG görseli RASTER olmalı: WhatsApp, Facebook, LinkedIn ve X
+      // paylaşımlarda SVG'yi render etmez, kart görselsiz görünür.
+      images: [{ url: "/og.png", width: 1200, height: 630, alt: opts.title }],
     },
   };
 }

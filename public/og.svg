@@ -7,10 +7,10 @@
   <rect x="96" y="150" width="72" height="72" rx="10" fill="#ffffff" fill-opacity="0.08"/>
   <path d="M112 186 L132 176 L152 186 L132 196 Z" fill="#c9982f"/>
   <path d="M120 191 v10 c0 4.5 5.5 7.5 12 7.5 s12-3 12-7.5 v-10" fill="none" stroke="#c9982f" stroke-width="3" stroke-linecap="round"/>
-  <text x="192" y="200" font-family="system-ui, sans-serif" font-size="20" letter-spacing="5" fill="#c9982f">EBUSADULLAH AKADEMİ</text>
+  <text x="192" y="200" font-family="Arial, Helvetica, sans-serif" font-size="20" letter-spacing="5" fill="#c9982f">EBUSADULLAH AKADEMİ</text>
   <text x="96" y="330" font-family="Georgia, serif" font-size="66" font-weight="600" fill="#ffffff">Hacamat ve Sülük</text>
   <text x="96" y="406" font-family="Georgia, serif" font-size="66" font-weight="600" fill="#c9982f">Eğitim Programları</text>
   <rect x="96" y="446" width="72" height="5" rx="2.5" fill="#c9982f"/>
-  <text x="96" y="510" font-family="system-ui, sans-serif" font-size="25" fill="#ffffff" fill-opacity="0.72">Çevrimiçi teorik modüller · Konya&apos;da yüz yüze uygulama kampı</text>
-  <text x="96" y="556" font-family="system-ui, sans-serif" font-size="21" fill="#ffffff" fill-opacity="0.45">1994&apos;ten bu yana saha tecrübesi · konyahacamat.com.tr</text>
+  <text x="96" y="510" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#ffffff" fill-opacity="0.72">Çevrimiçi teorik modüller · Konya&apos;da yüz yüze uygulama kampı</text>
+  <text x="96" y="556" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#ffffff" fill-opacity="0.45">1994&apos;ten bu yana saha tecrübesi · konyahacamat.com.tr</text>
 </svg>

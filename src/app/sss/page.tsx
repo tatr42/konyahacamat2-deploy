@@ -1,4 +1,7 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { pageMeta } from "@/lib/seo";
+import SectionHeading from "@/components/SectionHeading";
 import { PROGRAMS, CREDENTIAL } from "@/data/programs";
 import { SITE } from "@/data/site";
 import { faqPageSchema } from "@/lib/schema";
@@ -50,13 +53,19 @@ const GENERAL_FAQS = [
   },
 ];
 
-/** Program SSS'lerini de tek sayfada topla — kullanıcı hepsini burada bulur. */
-const ALL_FAQS = [...GENERAL_FAQS, ...PROGRAMS.flatMap((p) => p.faqs)];
+/**
+ * KOPYA İÇERİK KURALI: Program SSS'leri BU SAYFADA TEKRARLANMAZ.
+ *
+ * Önceden hem burada hem program sayfalarında aynı soru-cevap metni ve aynı
+ * FAQPage şeması basılıyordu; bu, kendi koyduğumuz "her içerik tek yerde"
+ * kuralına aykırıydı. Artık burada yalnızca genel sorular yer alır, program
+ * soruları için ilgili sayfaya bağlamsal link verilir.
+ */
 
 export default function Page() {
   return (
     <>
-      <Jsonld data={faqPageSchema(ALL_FAQS)} />
+      <Jsonld data={faqPageSchema(GENERAL_FAQS)} />
 
       <PageHero
         eyebrow="Yardım"
@@ -67,15 +76,36 @@ export default function Page() {
 
       <FaqSection items={GENERAL_FAQS} eyebrow="Genel" title="Genel sorular" id="genel" />
 
-      {PROGRAMS.map((p) => (
-        <FaqSection
-          key={p.slug}
-          items={p.faqs}
-          eyebrow="Program"
-          title={`${p.title} hakkında`}
-          id={p.slug}
-        />
-      ))}
+      {/* Program soruları burada tekrarlanmaz — kendi sayfalarına yönlendirilir */}
+      <section className="py-14 lg:py-20">
+        <div className="container-ak max-w-3xl">
+          <SectionHeading
+            eyebrow="Programa Özel"
+            title="Belirli bir program hakkında soru"
+            lead="Süre, müfredat, katılım şartları ve belge kapsamına dair sorular, ilgili programın kendi sayfasında ayrıntılı olarak yanıtlanır."
+          />
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {PROGRAMS.map((p) => (
+              <Link
+                key={p.slug}
+                href={`/${p.slug}#sikca-sorulan-sorular`}
+                className="card-ak p-6 hover:border-navy/30 transition-colors"
+              >
+                <span className="eyebrow-ak">S.S.S.</span>
+                <h3 className="font-display text-lg font-semibold text-navy mt-2">
+                  {p.title}
+                </h3>
+                <p className="text-ink-soft text-[14px] leading-relaxed mt-2">
+                  {p.faqs.length} soru — süre, katılım, belge ve uygulama kampı.
+                </p>
+                <span className="inline-flex items-center gap-1.5 text-navy font-semibold text-[13.5px] mt-4">
+                  Soruları görün <ArrowRight size={14} />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <CtaBand
         title="Sorunuzun cevabı burada yoksa"

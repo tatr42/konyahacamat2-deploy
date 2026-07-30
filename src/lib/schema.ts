@@ -45,8 +45,10 @@ export function educationalOrganizationSchema() {
     description:
       "Hacamat (kupa terapisi) ve sülük terapisi (hirudoterapi) alanında eğitim veren uygulama akademisi. 1994'ten bu yana süren saha tecrübesi, çevrimiçi teorik dersler ve Konya'da yüz yüze uygulama kampı.",
     url: SITE.baseUrl,
-    logo: `${SITE.baseUrl}/logo.svg`,
-    image: `${SITE.baseUrl}/og.svg`,
+    // Yapısal veride raster kullanılır — Google logo/görsel alanlarında
+    // .png/.jpg bekler, SVG'yi güvenilir biçimde işlemez.
+    logo: `${SITE.baseUrl}/logo.png`,
+    image: `${SITE.baseUrl}/og.png`,
     email: SITE.email,
     telephone: SITE.phoneTR,
     foundingDate: String(SITE.founded),
