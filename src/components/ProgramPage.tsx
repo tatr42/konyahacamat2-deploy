@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { CheckCircle2, Users, Clock, Wifi, ArrowRight, ExternalLink } from "lucide-react";
 import { SITE, waLink } from "@/data/site";
 import { getProgram, type Program } from "@/data/programs";
@@ -68,6 +69,19 @@ export default function ProgramPage({ slug }: { slug: Program["slug"] }) {
             Kayıt Formu
           </Link>
         </div>
+
+        {/* Kapak görseli — sayfanın LCP öğesi, öncelikli yüklenir */}
+        <div className="mt-10 rounded-lg overflow-hidden border border-white/15 max-w-4xl">
+          <Image
+            src={p.hero.src}
+            alt={p.hero.alt}
+            width={p.hero.width}
+            height={p.hero.height}
+            priority
+            sizes="(max-width: 1024px) 100vw, 900px"
+            className="w-full h-auto object-cover"
+          />
+        </div>
       </PageHero>
 
       <div className="container-ak py-14 lg:py-20 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
@@ -93,12 +107,24 @@ export default function ProgramPage({ slug }: { slug: Program["slug"] }) {
               sorgusunda kardeş domainle yarışan bir sayfaya dönüşmesin. */}
           <section>
             <SectionHeading eyebrow="Uygulama" title={p.therapy.title} id="uygulama-nedir" />
-            <div className="mt-5 space-y-4">
-              {p.therapy.paragraphs.map((par, i) => (
-                <p key={i} className="text-ink-soft leading-relaxed text-[15.5px]">
-                  {par}
-                </p>
-              ))}
+            <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+              <div className="md:col-span-2 space-y-4">
+                {p.therapy.paragraphs.map((par, i) => (
+                  <p key={i} className="text-ink-soft leading-relaxed text-[15.5px]">
+                    {par}
+                  </p>
+                ))}
+              </div>
+              <figure className="rounded-lg overflow-hidden border border-line">
+                <Image
+                  src={p.therapyImage.src}
+                  alt={p.therapyImage.alt}
+                  width={p.therapyImage.width}
+                  height={p.therapyImage.height}
+                  sizes="(max-width: 768px) 100vw, 320px"
+                  className="w-full h-auto object-cover"
+                />
+              </figure>
             </div>
             <div className="mt-6 card-ak p-5 bg-navy-tint/50 border-l-[3px] border-l-navy">
               <p className="text-ink-soft text-[15px] leading-relaxed">

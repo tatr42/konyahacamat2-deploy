@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   GraduationCap,
   Users,
@@ -19,6 +20,7 @@ import SectionHeading from "@/components/SectionHeading";
 import FaqSection from "@/components/FaqSection";
 import CtaBand from "@/components/CtaBand";
 import CredentialNote from "@/components/CredentialNote";
+import MotifDivider from "@/components/MotifDivider";
 
 /**
  * ANA SAYFA — akademi/eğitim niyeti.
@@ -103,8 +105,20 @@ export default function HomePage() {
               </dl>
             </div>
 
-            {/* Program kartı — hızlı bakış */}
-            <div className="lg:col-span-5">
+            {/* Görsel + program kartı */}
+            <div className="lg:col-span-5 space-y-5">
+              <figure className="rounded-lg overflow-hidden border border-white/15">
+                <Image
+                  src="/img/hacamat-coklu-kupa.webp"
+                  alt="Eldivenli uygulayıcı tarafından sırt bölgesine yerleştirilmiş hacamat kupaları"
+                  width={864}
+                  height={486}
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 460px"
+                  className="w-full h-auto object-cover"
+                />
+              </figure>
+
               <div className="bg-white/[0.06] border border-white/15 rounded-lg p-7 backdrop-blur-sm">
                 <span className="eyebrow-ak mb-4">Program Yapısı</span>
                 <ul className="space-y-5">
@@ -130,6 +144,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Motif — hero ile programlar arasındaki tek geçiş şeridi */}
+      <MotifDivider />
 
       {/* ── PROGRAMLAR ── */}
       <section className="py-16 lg:py-24">
@@ -207,6 +224,27 @@ export default function HomePage() {
               title="Kitaptan değil, sahadan gelen bir müfredat"
               lead={`${SITE.founded} yılından bu yana süren uygulama pratiği, eğitimin her modülüne gerçek vaka deneyimi olarak yansır.`}
             />
+            {/* Arşiv şeridi — "1994'ten beri" iddiasının görsel kanıtı.
+                Kareler küçük: düşük çözünürlüklü arşiv malzemesi. */}
+            <div className="mt-7 grid grid-cols-3 gap-3">
+              {[
+                { src: "/img/arsiv-uygulama-1.webp", w: 469, h: 532, alt: "Arşiv: erken dönem hacamat uygulaması" },
+                { src: "/img/arsiv-bas-uygulama.webp", w: 516, h: 254, alt: "Arşiv: baş bölgesi hacamat uygulaması" },
+                { src: "/img/arsiv-sirt-uygulama.webp", w: 240, h: 254, alt: "Arşiv: sırt bölgesi hacamat uygulaması" },
+              ].map((img) => (
+                <figure key={img.src} className="rounded-md overflow-hidden border border-line bg-canvas-deep">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    width={img.w}
+                    height={img.h}
+                    sizes="(max-width: 640px) 30vw, 150px"
+                    className="w-full h-24 object-cover"
+                  />
+                </figure>
+              ))}
+            </div>
+
             <ul className="mt-8 space-y-5">
               {[
                 { icon: <Users size={19} />, t: `${SITE.graduates}+ kursiyer`, d: "Farklı illerden katılımcılarla yürütülmüş program geçmişi." },

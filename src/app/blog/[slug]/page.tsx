@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ArrowRight, CalendarDays } from "lucide-react";
@@ -41,6 +42,7 @@ export async function generateMetadata({
       url: `/blog/${post.slug}`,
       type: "article",
       publishedTime: post.date,
+      images: [{ url: post.image ?? "/og.png", width: 1200, height: 630, alt: post.title }],
     },
   };
 }
@@ -84,6 +86,21 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           </span>
         </div>
       </section>
+
+      {/* Kapak görseli — başlık bandının hemen altında, sayfanın LCP öğesi */}
+      {post.image && (
+        <div className="container-ak max-w-4xl -mt-6 lg:-mt-8 relative z-10">
+          <Image
+            src={post.image}
+            alt=""
+            width={1200}
+            height={630}
+            priority
+            sizes="(max-width: 1024px) 100vw, 900px"
+            className="w-full h-52 sm:h-64 lg:h-80 object-cover rounded-lg border border-line shadow-sm"
+          />
+        </div>
+      )}
 
       <div className="container-ak py-12 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
         <aside className="lg:col-span-3 order-1">

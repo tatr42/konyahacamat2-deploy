@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { pageMeta } from "@/lib/seo";
 import { getAllPosts, formatDate, CLUSTERS, type ClusterKey } from "@/lib/mdx";
@@ -50,8 +51,20 @@ export default function Page() {
                       <Link
                         key={p.slug}
                         href={`/blog/${p.slug}`}
-                        className="card-ak p-6 flex flex-col hover:border-navy/30 transition-colors"
+                        className="card-ak overflow-hidden flex flex-col hover:border-navy/30 transition-colors"
                       >
+                        {p.image && (
+                          <div className="relative w-full h-40 bg-canvas-deep overflow-hidden">
+                            <Image
+                              src={p.image}
+                              alt=""
+                              fill
+                              sizes="(max-width: 768px) 100vw, 360px"
+                              className="object-cover"
+                            />
+                          </div>
+                        )}
+                        <div className="p-6 flex flex-col flex-1">
                         <span className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em] uppercase text-gold">
                           {formatDate(p.date)}
                           {p.pillar && (
@@ -69,6 +82,7 @@ export default function Page() {
                         <span className="inline-flex items-center gap-1.5 text-navy font-semibold text-[13.5px] mt-5">
                           Yazıyı okuyun <ArrowRight size={14} />
                         </span>
+                        </div>
                       </Link>
                     ))}
                   </div>

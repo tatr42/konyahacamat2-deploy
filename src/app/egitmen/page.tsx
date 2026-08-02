@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Award, BookOpen, Users, ShieldCheck, ArrowRight } from "lucide-react";
 import { pageMeta } from "@/lib/seo";
 import { SITE, yearsExp } from "@/data/site";
@@ -33,6 +34,22 @@ export default function Page() {
           <div className="lg:col-span-2 space-y-10">
             <div>
               <SectionHeading eyebrow="Yaklaşım" title="Sahada öğrenilen, sınıfta aktarılan bilgi" />
+              {/* Portre bilinçli olarak KÜÇÜK: sayfanın konusu kişi kültü değil,
+                  aktarılan yöntem. Metnin yanına yerleşir, metni ezmez. */}
+              <figure className="float-none sm:float-right sm:ml-6 mb-5 sm:mb-3 mt-5 w-40 sm:w-44 shrink-0">
+                <Image
+                  src="/img/egitmen-portre.webp"
+                  alt="Ebusadullah Hoca — Ebusadullah Akademi kurucu eğitmeni"
+                  width={533}
+                  height={660}
+                  priority
+                  sizes="176px"
+                  className="w-full h-auto rounded-lg border border-line object-cover"
+                />
+                <figcaption className="text-[11.5px] text-ink-soft leading-snug mt-2 text-center">
+                  Ebusadullah Hoca
+                </figcaption>
+              </figure>
               <div className="mt-5 space-y-4 text-ink-soft leading-relaxed text-[15.5px]">
                 <p>
                   {SITE.founded} yılında başlayan uygulama pratiği, bugün Akademi&apos;nin
@@ -51,6 +68,36 @@ export default function Page() {
                   Uygulama oturumları küçük gruplarla yürütülür; her kursiyerin eğitmen
                   gözetiminde birebir pratik yapması ve hatasının anında düzeltilmesi esastır.
                 </p>
+              </div>
+            </div>
+
+            {/* Arşiv — 1994'ten bu yana süren pratiğin somut kanıtı.
+                Görseller düşük çözünürlüklü olduğu için KÜÇÜK kullanılır;
+                büyütmek kalite kaybını görünür kılardı. */}
+            <div className="clear-both">
+              <SectionHeading
+                eyebrow="Arşivden"
+                title="Yılların uygulama pratiği"
+                lead="Aşağıdaki kareler, Akademi'nin müfredatını besleyen saha tecrübesinin ilk yıllarından."
+              />
+              <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {[
+                  { src: "/img/arsiv-uygulama-1.webp", w: 469, h: 532, alt: "Arşiv: Ebusadullah Hoca'nın erken dönem hacamat uygulaması" },
+                  { src: "/img/arsiv-sirt-uygulama.webp", w: 240, h: 254, alt: "Arşiv: sırt bölgesine hacamat uygulaması" },
+                  { src: "/img/arsiv-bas-uygulama.webp", w: 516, h: 254, alt: "Arşiv: baş bölgesi hacamat uygulaması" },
+                  { src: "/img/arsiv-uygulama-2.webp", w: 853, h: 396, alt: "Arşiv: uygulama sırasında eğitmen ve danışan" },
+                ].map((img) => (
+                  <figure key={img.src} className="rounded-md overflow-hidden border border-line bg-canvas-deep">
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      width={img.w}
+                      height={img.h}
+                      sizes="(max-width: 640px) 45vw, 160px"
+                      className="w-full h-28 sm:h-32 object-cover"
+                    />
+                  </figure>
+                ))}
               </div>
             </div>
 
@@ -76,6 +123,26 @@ export default function Page() {
           </div>
 
           <aside className="space-y-5">
+            {/* Eğitmenin KENDİ aldığı belge — kurumumuzun akredite olduğu
+                anlamına GELMEZ; alt yazıda bu ayrım açıkça yapılır. */}
+            <figure className="card-ak p-5">
+              <span className="eyebrow-ak">Eğitmenin Belgesi</span>
+              <Image
+                src="/img/egitmen-sertifika-2012.webp"
+                alt="Eğitmenin 2012 yılında aldığı hacamat (cupping) eğitim sertifikası"
+                width={785}
+                height={1095}
+                sizes="(max-width: 1024px) 60vw, 300px"
+                className="w-full h-auto rounded-md border border-line mt-3"
+              />
+              <figcaption className="text-[12.5px] text-ink-soft leading-relaxed mt-3">
+                Eğitmenimizin 2012&apos;de tamamladığı hacamat (cupping) eğitimine ait
+                belge. Bu belge <strong className="text-ink">eğitmene aittir</strong>;
+                Akademi&apos;nin herhangi bir kurum tarafından akredite edildiği anlamına
+                gelmez.
+              </figcaption>
+            </figure>
+
             <div className="card-ak p-6">
               <span className="eyebrow-ak">Özet</span>
               <dl className="mt-4 space-y-4">

@@ -31,6 +31,14 @@ export interface TherapyContext {
   handoff: { text: string; anchor: string; href: string };
 }
 
+/** Sayfa görseli — alt metni erişilebilirlik ve SEO için zorunlu tutulur. */
+export interface ProgramImage {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
 export interface Program {
   slug: "hacamat-egitimi" | "suluk-egitimi";
   /** Sayfa H1 */
@@ -50,6 +58,10 @@ export interface Program {
   format: string;
   /** Uygulamanın kendisine dair kısa bağlam + kardeş siteye devir */
   therapy: TherapyContext;
+  /** Sayfa başlığındaki kapak görseli (LCP — öncelikli yüklenir) */
+  hero: ProgramImage;
+  /** Terapi bağlamı bölümündeki destekleyici görsel */
+  therapyImage: ProgramImage;
   faqs: { q: string; a: string }[];
 }
 
@@ -98,6 +110,18 @@ export const PROGRAMS: Program[] = [
         anchor: "Konya hacamat ve sülük terapisi hizmetleri",
         href: "https://www.konyahacamat.net/hizmetler/hacamat",
       },
+    },
+    hero: {
+      src: "/img/kupa-steril-urun.webp",
+      alt: "Hacamat eğitiminde kullanılan steril, tek kullanımlık vakumlu kupa",
+      width: 1536,
+      height: 1024,
+    },
+    therapyImage: {
+      src: "/img/hacamat-coklu-kupa.webp",
+      alt: "Sırt bölgesine eldivenli uygulayıcı tarafından yerleştirilmiş çoklu hacamat kupaları",
+      width: 864,
+      height: 486,
     },
     faqs: [
       {
@@ -168,6 +192,18 @@ export const PROGRAMS: Program[] = [
         anchor: "sülük terapisi ve tıbbi sülük satışı",
         href: "https://www.konyahacamat.net/hizmetler/suluk",
       },
+    },
+    hero: {
+      src: "/img/tibbi-suluk-makro.webp",
+      alt: "Hirudoterapi eğitiminde kullanılan tıbbi sülük — yakın plan makro çekim",
+      width: 1536,
+      height: 1024,
+    },
+    therapyImage: {
+      src: "/img/suluk-eldivenli.webp",
+      alt: "Eldivenli avuç içinde tutulan tıbbi sülük",
+      width: 355,
+      height: 142,
     },
     faqs: [
       {
