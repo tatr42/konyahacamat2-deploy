@@ -70,15 +70,17 @@ export default function ProgramPage({ slug }: { slug: Program["slug"] }) {
           </Link>
         </div>
 
-        {/* Kapak görseli — sayfanın LCP öğesi, öncelikli yüklenir */}
-        <div className="mt-10 rounded-lg overflow-hidden border border-white/15 max-w-4xl">
+        {/* Kapak görseli — ana sayfadaki ölçekle aynı tutulur (~440px).
+            Büyük kapak sayfanın üst kısmını görsele boğuyordu; burada asıl
+            içerik müfredat metni. */}
+        <div className="mt-10 rounded-lg overflow-hidden border border-white/15 max-w-md">
           <Image
             src={p.hero.src}
             alt={p.hero.alt}
             width={p.hero.width}
             height={p.hero.height}
             priority
-            sizes="(max-width: 1024px) 100vw, 900px"
+            sizes="(max-width: 640px) 100vw, 440px"
             className="w-full h-auto object-cover"
           />
         </div>
