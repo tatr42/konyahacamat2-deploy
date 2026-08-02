@@ -229,24 +229,37 @@ export default function HomePage() {
 
           <div className="space-y-6 lg:pt-14">
             <CredentialNote />
-            {/* Hizmet niyetini kardeş siteye devret — kanibalizasyonu önleyen köprü */}
+            {/* Hizmet niyetini kardeş siteye devret — kanibalizasyonu önleyen köprü.
+                Anchor metinleri hizmet niyetlidir; bu sayfa o sorgularda
+                yarışmaz, niyeti sahibine yönlendirir. */}
             <div className="card-ak p-6 lg:p-7 bg-navy-tint/60">
               <h3 className="font-semibold text-navy mb-2">
                 Eğitim değil, uygulama mı arıyorsunuz?
               </h3>
               <p className="text-ink-soft leading-relaxed text-[15px]">
-                Bu site yalnızca eğitim programlarımızı anlatır. Sülük terapisi
-                seansı, malzeme temini veya randevu için kardeş sitemize göz atın:{" "}
-                <a
-                  href={SITE.sisters.suluk.url}
-                  target="_blank"
-                  rel="noopener"
-                  className="text-navy font-semibold underline underline-offset-2 hover:text-gold"
-                >
-                  konyahacamat.net
-                </a>
-                .
+                Bu site yalnızca eğitim programlarımızı anlatır. Aynı kurumun
+                uygulama tarafı kardeş sitemizde yürür:
               </p>
+              <ul className="mt-3 space-y-2 text-[15px]">
+                {[
+                  { href: `${SITE.sisters.suluk.url}/hizmetler/suluk`, label: "Sülük terapisi (hirudoterapi) seansı" },
+                  { href: `${SITE.sisters.suluk.url}/hizmetler/hacamat`, label: "Kuru ve yaş hacamat uygulaması" },
+                  { href: `${SITE.sisters.suluk.url}/suluk-satisi`, label: "Tıbbi sülük satışı" },
+                  { href: `${SITE.sisters.suluk.url}/kupa-malzemeleri`, label: "Hacamat kupası ve malzemeleri" },
+                ].map((l) => (
+                  <li key={l.href} className="flex gap-2.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0 mt-2" />
+                    <a
+                      href={l.href}
+                      target="_blank"
+                      rel="noopener"
+                      className="text-navy font-medium underline underline-offset-2 hover:text-gold"
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>

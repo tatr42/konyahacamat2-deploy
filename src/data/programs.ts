@@ -15,6 +15,22 @@ export interface Module {
   detail: string;
 }
 
+/**
+ * Terapi bağlamı — sayfaya derinlik katan ama KANİBALİZASYON ÜRETMEYEN blok.
+ *
+ * Kural: uygulamanın NE OLDUĞU burada kısaca (2–3 paragraf) anlatılır, çünkü
+ * eğitimi anlamak için gerekli. Ancak "hacamat tedavisi", "sülük seansı",
+ * "randevu" gibi HİZMET niyetli sorgular bu sitenin hedefi DEĞİLDİR; o niyet
+ * bağlamsal linkle kardeş domaine devredilir. Bu yüzden blok kısadır ve
+ * kendi başına bir "hacamat nedir" sayfasına dönüşmez.
+ */
+export interface TherapyContext {
+  title: string;
+  paragraphs: string[];
+  /** Hizmet niyetini devreden bağlamsal link */
+  handoff: { text: string; anchor: string; href: string };
+}
+
 export interface Program {
   slug: "hacamat-egitimi" | "suluk-egitimi";
   /** Sayfa H1 */
@@ -32,6 +48,8 @@ export interface Program {
   /** ISO 8601 süre — CourseInstance için */
   durationISO: string;
   format: string;
+  /** Uygulamanın kendisine dair kısa bağlam + kardeş siteye devir */
+  therapy: TherapyContext;
   faqs: { q: string; a: string }[];
 }
 
@@ -68,6 +86,19 @@ export const PROGRAMS: Program[] = [
     durationLabel: "Teorik modüller + 2 günlük yüz yüze uygulama kampı",
     durationISO: "P6W",
     format: "Çevrimiçi teorik dersler · Konya'da yüz yüze uygulama",
+    therapy: {
+      title: "Neyi öğretiyoruz? Hacamat uygulaması kısaca",
+      paragraphs: [
+        "Hacamat (kupa terapisi), belirli bölgelere vakumlu kupa uygulanarak yapılan geleneksel bir yöntemdir. Kuru hacamatta yalnızca vakum uygulanır; yaş hacamatta ise vakum sonrası yüzeysel çiziklerle işlem tamamlanır. İkisi farklı teknik, farklı hazırlık ve farklı hijyen disiplini gerektirir — eğitimde bu ayrım ayrı modüllerde işlenir.",
+        "Uygulamada noktalar rastgele seçilmez; kâhil (ense-omuz) bölgesi başta olmak üzere klasik bir harita mantığı vardır. Ancak asıl belirleyici olan, danışanın durumuna göre uygulamanın yapılıp yapılmayacağına karar verebilmektir. Bu yüzden programımızda teknik kadar sınırlar da öğretilir: kan sulandırıcı kullanımı, kanama bozuklukları ve gebelik gibi durumlarda uygulama yapılmaz, danışan hekime yönlendirilir.",
+        "Hacamat ve sülük geleneksel ve tamamlayıcı uygulamalardır; hekim tedavisinin yerine geçmez ve eğitimde bu dil özenle korunur.",
+      ],
+      handoff: {
+        text: "Eğitim değil, uygulama mı arıyorsunuz? Seans ve randevu talepleri kardeş sitemiz üzerinden yürütülür:",
+        anchor: "Konya hacamat ve sülük terapisi hizmetleri",
+        href: "https://www.konyahacamat.net/hizmetler/hacamat",
+      },
+    },
     faqs: [
       {
         q: "Hacamat eğitimi için ön şart var mı?",
@@ -125,6 +156,19 @@ export const PROGRAMS: Program[] = [
     durationLabel: "Teorik modüller + yüz yüze uygulama oturumu",
     durationISO: "P4W",
     format: "Çevrimiçi teorik dersler · Konya'da yüz yüze uygulama",
+    therapy: {
+      title: "Neyi öğretiyoruz? Sülük terapisi kısaca",
+      paragraphs: [
+        "Sülük terapisi (hirudoterapi), kontrollü koşullarda üretilen tıbbi sülüğün belirli bir bölgeye uygulanmasıyla yapılır. Hacamattan en önemli farkı, canlı bir materyalle çalışılmasıdır: sülüğün nereden geldiği, nasıl saklandığı ve uygulama sonrası ne olacağı, tekniğin kendisi kadar belirleyicidir.",
+        "Bu nedenle eğitimimiz yalnızca uygulama anını değil; tedarik ve karantina, su kalitesi ve barındırma koşulları, seans yönetimi, işlem sonrası bakım ve atık yönetimini de kapsar. Tek danışan – tek sülük kuralı ve kullanılmış materyalin mevzuata uygun imhası, programın tartışmaya kapalı başlıklarındandır.",
+        "Sülük uygulaması da geleneksel ve tamamlayıcı bir yöntemdir; tedavi garantisi içeren bir dil kullanılmaz ve risk grubundaki danışan hekime yönlendirilir.",
+      ],
+      handoff: {
+        text: "Uygulama yaptırmak veya tıbbi sülük temin etmek istiyorsanız kardeş sitemize göz atın:",
+        anchor: "sülük terapisi ve tıbbi sülük satışı",
+        href: "https://www.konyahacamat.net/hizmetler/suluk",
+      },
+    },
     faqs: [
       {
         q: "Sülük eğitimi için önce hacamat eğitimi almak şart mı?",

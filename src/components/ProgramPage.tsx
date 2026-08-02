@@ -21,6 +21,7 @@ export default function ProgramPage({ slug }: { slug: Program["slug"] }) {
 
   const toc = [
     { id: "program-hakkinda", text: "Program hakkında" },
+    { id: "uygulama-nedir", text: p.therapy.title },
     { id: "kimler-katilabilir", text: "Kimler katılabilir?" },
     { id: "mufredat", text: "Müfredat ve modüller" },
     { id: "kazanimlar", text: "Program kazanımları" },
@@ -85,6 +86,34 @@ export default function ProgramPage({ slug }: { slug: Program["slug"] }) {
               göstermek değil; hangi durumda uygulamanın yapılmayacağını, danışanın ne zaman
               hekime yönlendirileceğini ve hijyen zincirinin nerede kırıldığını da öğretmektir.
             </p>
+          </section>
+
+          {/* Terapi bağlamı — içeriği derinleştirir, hizmet niyetini kardeş
+              siteye devreder. Bilinçli olarak kısa tutulur ki "hacamat nedir"
+              sorgusunda kardeş domainle yarışan bir sayfaya dönüşmesin. */}
+          <section>
+            <SectionHeading eyebrow="Uygulama" title={p.therapy.title} id="uygulama-nedir" />
+            <div className="mt-5 space-y-4">
+              {p.therapy.paragraphs.map((par, i) => (
+                <p key={i} className="text-ink-soft leading-relaxed text-[15.5px]">
+                  {par}
+                </p>
+              ))}
+            </div>
+            <div className="mt-6 card-ak p-5 bg-navy-tint/50 border-l-[3px] border-l-navy">
+              <p className="text-ink-soft text-[15px] leading-relaxed">
+                {p.therapy.handoff.text}{" "}
+                <a
+                  href={p.therapy.handoff.href}
+                  target="_blank"
+                  rel="noopener"
+                  className="text-navy font-semibold underline underline-offset-2 hover:text-gold"
+                >
+                  {p.therapy.handoff.anchor}
+                </a>
+                .
+              </p>
+            </div>
           </section>
 
           <section>
