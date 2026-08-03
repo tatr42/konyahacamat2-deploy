@@ -2,9 +2,12 @@
  * Sayfa kaydı — TEK KAYNAK. Navbar, Footer ve sitemap buradan beslenir.
  * Yeni sayfa eklemek: buraya bir satır + ilgili route klasörü.
  *
- * KANİBALİZASYON KURALI: bu sitede il/ilçe kurs sayfası YOKTUR.
- * İl bazlı kurs sorguları konyahacamat.net'in silosuna aittir; buradaki
- * şehir sinyali yalnızca /mezunlar sayfasıyla verilir.
+ * LOKASYON SİLOSU (karar güncellendi, 2026-08-03):
+ * İl bazlı kurs sayfaları ARTIK BU SİTEDEDİR — `/hacamat-kursu/{il}`, 81 il.
+ * Eğitim niyeti bu domaine toplandığı için kardeş domain konyahacamat.net'in
+ * eski `hacamat-kursu` silosu buraya 301'lenir. Sayfalar `data/nav`de tek tek
+ * kayıtlı DEĞİLDİR; yalnızca hub (`hacamat-kursu`) kayıtlıdır, il sayfaları
+ * `tr-provinces` listesinden türetilir ve sitemap'e oradan eklenir.
  */
 
 export interface SitePage {
@@ -17,6 +20,7 @@ export interface SitePage {
 export const PROGRAM_PAGES: SitePage[] = [
   { slug: "hacamat-egitimi", nav: "Hacamat Eğitimi", short: "Hacamat Eğitimi" },
   { slug: "suluk-egitimi", nav: "Sülük Eğitimi", short: "Sülük Eğitimi" },
+  { slug: "hacamat-kursu", nav: "İl İl Kurs", short: "İl İl Hacamat Kursu" },
 ];
 
 /** Kurum & güven sayfaları. */

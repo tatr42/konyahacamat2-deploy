@@ -16,11 +16,12 @@ export const metadata = pageMeta({
 });
 
 /**
- * Mezun ağı sayfası — şehir sinyalini DOORWAY ÜRETMEDEN veren tek sayfa.
+ * Mezun ağı sayfası — kurum/güven tarafı.
  *
- * Kanibalizasyon kuralı: il listesi burada sadece kapsam anlatımıdır;
- * il başına ayrı sayfa/route ÜRETİLMEZ ve iller linklenmez. İl bazlı kurs
- * sorguları kardeş domain konyahacamat.net'in mevcut silosuna aittir.
+ * GÜNCELLEME (2026-08-03): İl bazlı kurs silosu kardeş domainden bu siteye
+ * devralındı. Bu sayfadaki il listesi artık ölü etiket değil, `/hacamat-kursu/{il}`
+ * sayfalarına giden iç link ağıdır — böylece hub dışında ikinci bir tarama
+ * yolu oluşur. Sayfanın kendi niyeti (mezun ağı / kapsam) değişmemiştir.
  */
 export default function Page() {
   return (
@@ -66,15 +67,17 @@ export default function Page() {
             <SectionHeading
               eyebrow="Kapsam"
               title="Katılım sağlanabilen iller"
-              lead="Aşağıdaki illerin tamamından programlarımıza çevrimiçi katılım mümkündür. Uygulama modülü için Konya'ya kısa bir ziyaret planlanır."
+              lead="Aşağıdaki illerin tamamından programlarımıza çevrimiçi katılım mümkündür. Uygulama modülü için Konya'ya kısa bir ziyaret planlanır. İl adına tıklayarak o ilde uygulama yapacak kursiyerler için hazırlanmış sayfaya geçebilirsiniz."
             />
             <ul className="mt-8 flex flex-wrap gap-2">
               {PROVINCES.map((p) => (
-                <li
-                  key={p.slug}
-                  className="px-3 py-1.5 rounded-md border border-line bg-surface text-[13px] text-ink-soft"
-                >
-                  {p.name}
+                <li key={p.slug}>
+                  <Link
+                    href={`/hacamat-kursu/${p.slug}`}
+                    className="inline-block px-3 py-1.5 rounded-md border border-line bg-surface text-[13px] text-ink-soft hover:border-navy hover:text-navy hover:bg-navy-tint transition-colors"
+                  >
+                    {p.name}
+                  </Link>
                 </li>
               ))}
             </ul>

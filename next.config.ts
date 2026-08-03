@@ -11,15 +11,17 @@ const NET = "https://www.konyahacamat.net";
  * kurallar bunu engeller.
  *
  * İki katman:
- *   1. `LEGACY_REDIRECTS` — il adı güvenle tespit edilen 502 URL, kardeş
- *      domaindeki EŞLEŞEN il sayfasına birebir gider.
+ *   1. `LEGACY_REDIRECTS` — il adı güvenle tespit edilen 502 URL, niyetine
+ *      göre ya bu sitedeki il kurs sayfasına ya da kardeş domaindeki eşleşen
+ *      silo sayfasına birebir gider.
  *   2. Aşağıdaki önek kuralları — geri kalan tüm eski URL aileleri, konusuna
  *      en yakın hub sayfasına gider. Sıra önemlidir: birebir kurallar önce
  *      tanımlanır, önek kuralları en sonda kalır.
  *
- * Not: Lokasyon içerikleri bilinçli olarak konyahacamat.net'e devredilir —
- * bu site yalnızca eğitim niyetine hizmet eder ve eski hizmet/satış
- * içerikleriyle rekabet etmemelidir.
+ * NİYET AYRIMI (güncellendi 2026-08-03):
+ *   EĞİTİM niyetli eski URL'ler (kurs aileleri) BU SİTEDE kalır — il kurs
+ *   silosu artık burada. HİZMET/SATIŞ niyetli olanlar (tedavi, kupa, ürün)
+ *   kardeş domain konyahacamat.net'e devredilir.
  */
 /**
  * `permanent: true` Next.js'te 308 üretir. Google 308'i 301 ile eşdeğer sayar,
@@ -35,9 +37,10 @@ const legacyExact = LEGACY_REDIRECTS.map(([source, destination]) => ({
 }));
 
 const legacyFamilies = [
-  // Kurs aileleri → .net kurs hub'ı
-  { source: "/hacamat-suluk-kurslari/:slug*", destination: `${NET}/hacamat-kursu` },
-  { source: "/hastaliklar-ve-tedavileri/:slug*", destination: `${NET}/hacamat-kursu` },
+  // Kurs ailesi → BU SİTEDEKİ kurs hub'ı (eğitim niyeti buraya toplandı)
+  { source: "/hacamat-suluk-kurslari/:slug*", destination: "/hacamat-kursu" },
+  // Tedavi ailesi → kardeş domaindeki sülük HİZMET sayfası (eğitim değil)
+  { source: "/hastaliklar-ve-tedavileri/:slug*", destination: `${NET}/hizmetler/suluk` },
   // Kupa / malzeme aileleri → .net malzeme hub'ı
   { source: "/hacamat-kupalari/:slug*", destination: `${NET}/kupa-malzemeleri` },
   { source: "/portfolio-item/:slug*", destination: `${NET}/kupa-malzemeleri` },
@@ -68,11 +71,33 @@ const legacyPages = [
   { source: "/hacamat-takvimi", destination: `${NET}/takvim` },
   { source: "/suluk-kursu-hacamat-ebuasdullah-tibbi-suluk-ve-hacamat-malzemeler", destination: "/suluk-egitimi" },
   { source: "/malzemeleri-hacamat-malzemeleri-hacamat-malzemeleri/hacamat-suluk-kursu", destination: "/hacamat-egitimi" },
-  { source: "/malzemeleri-hacamat-malzemeleri-hacamat-malzemeleri/il-il-hacamat-ve-suluk-kursu", destination: `${NET}/hacamat-kursu` },
+  { source: "/malzemeleri-hacamat-malzemeleri-hacamat-malzemeleri/il-il-hacamat-ve-suluk-kursu", destination: "/hacamat-kursu" },
   { source: "/malzemeleri-hacamat-malzemeleri-hacamat-malzemeleri/hacamat-suluk-kursu/hastaliklar-ve-tedavileri-konya-hacamat", destination: "/hacamat-egitimi" },
 ]
   .filter((r) => r.source !== r.destination) // kendine yönlendirme olmasın (/blog)
   .map((r) => ({ ...r, ...PERM }));
+
+/**
+ * ZİNCİR DENETİMİ — 301 → 301 kombinasyonunu derleme anında yakalar.
+ *
+ * Kardeş domainde `hacamat-kursu` ve `egitimler` yolları bu siteye
+ * yönlendirilmektedir. Buradan o yollara 301 vermek iki adımlı bir zincir
+ * kurar; Google zinciri izler ama değer kaybı ve tarama israfı yaşanır.
+ * Sessizce yanlış çalışmasındansa build'in kırılması tercih edilir.
+ */
+const NET_RETIRED = [`${NET}/hacamat-kursu`, `${NET}/egitimler`];
+
+function assertNoRedirectChain(rules: { source: string; destination: string }[]): void {
+  const bad = rules.filter((r) =>
+    NET_RETIRED.some((p) => r.destination === p || r.destination.startsWith(`${p}/`)),
+  );
+  if (bad.length > 0) {
+    throw new Error(
+      `next.config: ${bad.length} yönlendirme kardeş domainde 301'lenen bir yola gidiyor ` +
+        `(301 zinciri). İlk örnek: ${bad[0].source} → ${bad[0].destination}`,
+    );
+  }
+}
 
 const nextConfig: NextConfig = {
   trailingSlash: false,
@@ -83,7 +108,9 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     // Sıra: elle eşlenen sayfalar → birebir il eşleşmeleri → aile önekleri.
-    return [...legacyPages, ...legacyExact, ...legacyFamilies];
+    const rules = [...legacyPages, ...legacyExact, ...legacyFamilies];
+    assertNoRedirectChain(rules);
+    return rules;
   },
 };
 

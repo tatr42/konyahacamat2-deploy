@@ -2,16 +2,21 @@ import type { MetadataRoute } from "next";
 import { SITE } from "@/data/site";
 import { ALL_PAGES } from "@/data/nav";
 import { getAllPosts } from "@/lib/mdx";
+import { PROVINCES } from "@/data/tr-provinces";
 
 /**
- * Sitemap — sayfa kaydı (data/nav) + MDX blog yazılarından otomatik üretilir.
- * Toplam URL sayısı düşüktür ve öyle kalmalıdır: bu site "kaliteli, sınırlı
- * ölçek" stratejisiyle çalışır, programatik il sayfası üretmez.
+ * Sitemap — sayfa kaydı (data/nav) + il kurs silosu + MDX blog yazıları.
+ *
+ * İl silosu (2026-08-03) kardeş domainden devralındı; 81 il sayfası burada
+ * listelenir. Ölçek büyüdüğü için tek kural şudur: sitemap'e yalnızca
+ * `generateStaticParams` ile GERÇEKTEN üretilen URL'ler girer — ikisi de
+ * `tr-provinces` listesinden beslendiği için kaymaları imkânsızdır.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const priority: Record<string, number> = {
     "hacamat-egitimi": 0.9,
     "suluk-egitimi": 0.9,
+    "hacamat-kursu": 0.9,
     egitmen: 0.7,
     "sertifika-dogrulama": 0.6,
     mezunlar: 0.6,
@@ -26,6 +31,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: priority[p.slug] ?? 0.5,
   }));
 
+  const cities: MetadataRoute.Sitemap = PROVINCES.map((p) => ({
+    url: `${SITE.baseUrl}/hacamat-kursu/${p.slug}`,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
   const posts: MetadataRoute.Sitemap = getAllPosts().map((p) => ({
     url: `${SITE.baseUrl}/blog/${p.slug}`,
     lastModified: new Date(`${p.date}T00:00:00`),
@@ -37,6 +48,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: SITE.baseUrl, changeFrequency: "weekly", priority: 1 },
     { url: `${SITE.baseUrl}/blog`, changeFrequency: "weekly", priority: 0.7 },
     ...pages,
+    ...cities,
     ...posts,
   ];
 }
