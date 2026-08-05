@@ -15,6 +15,7 @@ import { SITE } from "@/data/site";
 import { PROGRAMS } from "@/data/programs";
 import { assertEduProfilesComplete } from "@/data/province-education-profiles";
 import { buildCityCourseContent, allCitySlugs } from "@/lib/city-course-content";
+import { locative } from "@/lib/tr-case";
 import { faqPageSchema } from "@/lib/schema";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
@@ -22,6 +23,7 @@ import FaqSection from "@/components/FaqSection";
 import CredentialNote from "@/components/CredentialNote";
 import CtaBand from "@/components/CtaBand";
 import Jsonld from "@/components/Jsonld";
+import TrustBadges from "@/components/TrustBadges";
 
 /**
  * İL KURS SAYFASI — `/hacamat-kursu/{il}`
@@ -241,6 +243,22 @@ export default async function Page({ params }: { params: Promise<{ il: string }>
           </div>
         </section>
       )}
+
+      {/* Güven rozetleri — CTA'dan hemen önce son güvence katmanı.
+          Düz zemin: hemen ardından gelen FaqSection zaten bg-canvas-deep
+          kullanıyor, aynı tonu üst üste yığmamak için burada nötr kalır. */}
+      <section className="py-14 lg:py-16">
+        <div className="container-ak">
+          <SectionHeading
+            eyebrow="Güvenceler"
+            title={`${locative(p.name)} kursiyerlerimizin bize güvenme sebepleri`}
+            center
+          />
+          <div className="mt-10">
+            <TrustBadges />
+          </div>
+        </div>
+      </section>
 
       <FaqSection items={c.faqs} title={`${p.name} için sık sorulanlar`} />
 

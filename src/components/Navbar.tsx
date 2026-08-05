@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, GraduationCap, ChevronRight, ChevronDown } from "lucide-react";
+import Image from "next/image";
+import { Menu, X, Phone, ChevronRight, ChevronDown } from "lucide-react";
 import { SITE } from "@/data/site";
 import { PROGRAM_PAGES, INSTITUTION_PAGES } from "@/data/nav";
 
@@ -47,18 +48,15 @@ export default function Navbar() {
       {/* Ana gezinme */}
       <div className="bg-surface/95 backdrop-blur border-b border-line">
         <div className="container-ak flex items-center justify-between gap-8 h-16 lg:h-[72px]">
-          <Link href="/" className="flex items-center gap-3 shrink-0" aria-label={`${SITE.name} ana sayfa`}>
-            <span className="w-10 h-10 rounded-md bg-navy flex items-center justify-center text-gold-soft shrink-0">
-              <GraduationCap size={22} />
-            </span>
-            <span className="leading-tight">
-              <span className="block font-display text-[17px] lg:text-lg font-semibold text-navy whitespace-nowrap">
-                Ebusadullah Akademi
-              </span>
-              <span className="hidden sm:block text-[10px] tracking-[0.2em] uppercase text-ink-soft whitespace-nowrap">
-                Hacamat &amp; Sülük Eğitimleri
-              </span>
-            </span>
+          <Link href="/" className="flex items-center shrink-0" aria-label={`${SITE.name} ana sayfa`}>
+            <Image
+              src="/logo.svg"
+              alt="Ebusadullah Akademi"
+              width={250}
+              height={60}
+              priority
+              className="h-10 lg:h-11 w-auto"
+            />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-6 xl:gap-7" aria-label="Ana menü">

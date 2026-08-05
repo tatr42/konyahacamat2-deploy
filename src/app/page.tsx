@@ -21,6 +21,7 @@ import FaqSection from "@/components/FaqSection";
 import CtaBand from "@/components/CtaBand";
 import CredentialNote from "@/components/CredentialNote";
 import MotifDivider from "@/components/MotifDivider";
+import TrustBadges from "@/components/TrustBadges";
 
 /**
  * ANA SAYFA — akademi/eğitim niyeti.
@@ -147,6 +148,20 @@ export default function HomePage() {
 
       {/* Motif — hero ile programlar arasındaki tek geçiş şeridi */}
       <MotifDivider />
+
+      {/* ── GÜVEN ROZETLERİ ── */}
+      <section className="py-14 lg:py-16 bg-canvas-deep border-y border-line">
+        <div className="container-ak">
+          <SectionHeading
+            eyebrow="Neden Bize Güvenebilirsiniz"
+            title="Otuz yılı aşkın tecrübe, somut güvenceler"
+            center
+          />
+          <div className="mt-10">
+            <TrustBadges />
+          </div>
+        </div>
+      </section>
 
       {/* ── PROGRAMLAR ── */}
       <section className="py-16 lg:py-24">

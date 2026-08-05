@@ -36,6 +36,24 @@ export const SITE = {
   },
   hours: "Pzt–Cmt 09:00–18:00 · Pazar kapalı",
 
+  /**
+   * Google İşletme Profili — üç sitede AYNI kayda işaret eder.
+   *
+   * Koordinat, işletme pin'inin kendisidir (ilçe/şehir merkezi DEĞİL).
+   * Gömülü harita CID ile açılır; böylece Google adresi yeniden geokodlamaz
+   * ve kartta işletme adı, puanı ve yol tarifi doğrudan kayıttan gelir.
+   *
+   * DİKKAT — NAP tutarsızlığı: Google kaydı "16-2 / 42100", bu dosya
+   * "16-4 / 42040" diyor. İşletmeye teyit ettirilip tek biçime indirilmeli.
+   */
+  googlePlace: {
+    name: "KONYA HACAMAT EBUSADULLAH",
+    placeId: "ChIJS2aWjgOF0BQR6HthfVrvn2g",
+    cid: "7539007473171135464",
+    plusCode: "VF8V+HH Meram, Konya",
+    geo: { latitude: 37.866483, longitude: 32.493991 },
+  },
+
   // Kurum geçmişi
   founded: 1994,
   graduates: 1200,
@@ -62,6 +80,26 @@ export const SITE = {
 export function waLink(text: string, de = false): string {
   const num = de ? SITE.waDE : SITE.waTR;
   return `https://wa.me/${num}?text=${encodeURIComponent(text)}`;
+}
+
+/**
+ * Gömülü harita `src`'si — adres metnini geokodlamak yerine işletme
+ * kaydını doğrudan açar. API anahtarı gerekmez.
+ */
+export function mapEmbedSrc(zoom = 17): string {
+  return `https://maps.google.com/maps?cid=${SITE.googlePlace.cid}&hl=tr&z=${zoom}&output=embed`;
+}
+
+/** Google Haritalar işletme profili (kanonik bağlantı). */
+export function mapPlaceHref(): string {
+  return `https://www.google.com/maps?cid=${SITE.googlePlace.cid}`;
+}
+
+/** "Yol tarifi al" — hedef, adres metni değil işletme kaydının kendisi. */
+export function mapDirectionsHref(): string {
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+    SITE.googlePlace.name,
+  )}&destination_place_id=${SITE.googlePlace.placeId}`;
 }
 
 /** 1994'ten bugüne yıl (deneyim rozetleri için — her yıl otomatik artar). */

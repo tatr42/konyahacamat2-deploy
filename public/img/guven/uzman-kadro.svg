@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img" aria-label="Uzman eğitmen kadrosu">
+  <circle cx="48" cy="48" r="46" fill="#e8eef7" stroke="#0b2545" stroke-opacity="0.1" stroke-width="2"/>
+  <path d="M24 42 L48 32 L72 42 L48 52 Z" fill="none" stroke="#c9982f" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M60 40 v13" fill="none" stroke="#c9982f" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="60" cy="55" r="2.6" fill="#c9982f"/>
+  <circle cx="66" cy="65" r="12.5" fill="#c9982f"/>
+  <path d="M60.5 65 l3.6 3.6 l7.4 -8" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

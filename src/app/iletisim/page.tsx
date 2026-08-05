@@ -1,8 +1,9 @@
 import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
 import { pageMeta } from "@/lib/seo";
-import { SITE, waLink } from "@/data/site";
+import { SITE, waLink, mapEmbedSrc, mapDirectionsHref, mapPlaceHref } from "@/data/site";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
+import TrustBadges from "@/components/TrustBadges";
 
 export const metadata = pageMeta({
   title: "İletişim",
@@ -100,6 +101,65 @@ export default function Page() {
               </a>{" "}
               üzerinden ilerleyebilirsiniz.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Güven rozetleri — iletişime geçmeden önce son güvence katmanı */}
+      <section className="pb-14 lg:pb-20">
+        <div className="container-ak">
+          <SectionHeading eyebrow="Neden Ebusadullah Akademi" title="Bize güvenmeniz için dört sebep" center />
+          <div className="mt-10">
+            <TrustBadges />
+          </div>
+        </div>
+      </section>
+
+      {/*
+        Konum — Google İşletme Profili kaydı CID ile gömülü.
+        Adres metni geokodlanmadığı için pin işletmenin kendisine düşer;
+        kart üzerinde ad, puan ve yorumlar Google'dan gelir.
+      */}
+      <section className="pb-14 lg:pb-20">
+        <div className="container-ak">
+          <SectionHeading eyebrow="Konum" title="Uygulama kampının yapıldığı merkez" />
+          <p className="text-ink-soft text-[15px] leading-relaxed mt-4 max-w-2xl">
+            Çevrimiçi teorik modüller uzaktan işlenir; yüz yüze uygulama günleri
+            aşağıdaki Konya Meram adresinde yapılır. Şehir dışından geliyorsanız
+            konaklama için WhatsApp'tan yönlendirme isteyebilirsiniz.
+          </p>
+
+          <div className="card-ak overflow-hidden mt-7">
+            <iframe
+              src={mapEmbedSrc()}
+              title={`${SITE.legalName} — Google Haritalar'daki konum: ${SITE.address.street}, ${SITE.address.district}/${SITE.address.city}`}
+              width="100%"
+              height="380"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="block w-full"
+            />
+            <div className="flex flex-col sm:flex-row gap-3 p-5 border-t border-line-soft">
+              <a
+                href={mapDirectionsHref()}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                className="btn-ghost"
+              >
+                <MapPin size={17} />
+                Yol tarifi al
+              </a>
+              <a
+                href={mapPlaceHref()}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                className="btn-ghost"
+              >
+                Google Haritalar'da aç
+              </a>
+            </div>
           </div>
         </div>
       </section>

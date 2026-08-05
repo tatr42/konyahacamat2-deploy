@@ -13,7 +13,7 @@
  * hizmet niyeti kardeş domainlere aittir.
  */
 
-import { SITE } from "@/data/site";
+import { SITE, mapPlaceHref } from "@/data/site";
 import { CREDENTIAL, type Program } from "@/data/programs";
 
 const postalAddress = {
@@ -115,10 +115,19 @@ export function courseSchema(p: Program) {
         courseMode: "onsite",
         inLanguage: "tr",
         instructor: { "@id": `${SITE.baseUrl}/egitmen#person` },
+        // `Place` — `hasMap`/`geo` yalnızca burada geçerli; sitenin kök
+        // varlığı olan EducationalOrganization bir Place değildir, oraya
+        // konum alanı yazılmaz (bkz. dosya başı notu).
         location: {
           "@type": "Place",
           name: SITE.legalName,
           address: postalAddress,
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: SITE.googlePlace.geo.latitude,
+            longitude: SITE.googlePlace.geo.longitude,
+          },
+          hasMap: mapPlaceHref(),
         },
       },
     ],
