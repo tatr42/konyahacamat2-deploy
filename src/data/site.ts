@@ -25,13 +25,13 @@ export const SITE = {
   waDE: "491634492870",
   email: "info@konyahacamat.net",
 
-  // Adres (NAP — üç sitede birebir aynı)
+  // Adres (NAP — üç sitede birebir aynı) — işletme tarafından 2026-08-11'de teyit edildi
   address: {
-    street: "Sahibiata Mh. Taşcami Uzunharmanlar Cd. No: 16-4",
+    street: "Sahibiata Mh. Taşcami Uzunharmanlar Cd. No: 16-2",
     district: "Meram",
     city: "Konya",
     region: "Konya",
-    postalCode: "42040",
+    postalCode: "42100",
     country: "TR",
   },
   hours: "Pzt–Cmt 09:00–18:00 · Pazar kapalı",
@@ -42,9 +42,6 @@ export const SITE = {
    * Koordinat, işletme pin'inin kendisidir (ilçe/şehir merkezi DEĞİL).
    * Gömülü harita CID ile açılır; böylece Google adresi yeniden geokodlamaz
    * ve kartta işletme adı, puanı ve yol tarifi doğrudan kayıttan gelir.
-   *
-   * DİKKAT — NAP tutarsızlığı: Google kaydı "16-2 / 42100", bu dosya
-   * "16-4 / 42040" diyor. İşletmeye teyit ettirilip tek biçime indirilmeli.
    */
   googlePlace: {
     name: "KONYA HACAMAT EBUSADULLAH",
