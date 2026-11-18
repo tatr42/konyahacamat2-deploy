@@ -65,15 +65,7 @@ export default function Page() {
                 className="btn-wa"
               >
                 <MessageCircle size={17} />
-                WhatsApp (Türkiye)
-              </a>
-              <a
-                href={waLink("Hallo, ich möchte Informationen über die Schulungen erhalten.", true)}
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-                className="btn-ghost"
-              >
-                WhatsApp (Almanya) · {SITE.phoneDEDisplay}
+                WhatsApp
               </a>
             </div>
           </div>

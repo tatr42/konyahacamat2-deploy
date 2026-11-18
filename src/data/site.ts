@@ -19,10 +19,7 @@ export const SITE = {
   // İletişim
   phoneTR: "+905544062383",
   phoneTRDisplay: "+90 554 406 23 83",
-  phoneDE: "+491634492870",
-  phoneDEDisplay: "+49 163 449 28 70",
   waTR: "905544062383",
-  waDE: "491634492870",
   email: "info@konyahacamat.net",
 
   // Adres (NAP — üç sitede birebir aynı) — işletme tarafından 2026-08-11'de teyit edildi
@@ -74,9 +71,8 @@ export const SITE = {
 } as const;
 
 /** WhatsApp derin bağlantısı — ön dolgulu mesajla. */
-export function waLink(text: string, de = false): string {
-  const num = de ? SITE.waDE : SITE.waTR;
-  return `https://wa.me/${num}?text=${encodeURIComponent(text)}`;
+export function waLink(text: string): string {
+  return `https://wa.me/${SITE.waTR}?text=${encodeURIComponent(text)}`;
 }
 
 /**

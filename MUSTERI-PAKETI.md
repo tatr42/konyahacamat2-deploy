@@ -37,7 +37,6 @@ farklıysa kendi başlık listenizi gönderin, birebir değiştirilir.
 | Mezun sayısı | 1200+ | |
 | Adres | Sahibiata Mh. Taşcami Uzunharmanlar Cd. No:16-4, 42040 Meram/Konya | |
 | Telefon / WhatsApp | +90 554 406 23 83 | |
-| Almanya hattı | +49 163 449 28 70 | |
 | E-posta | info@konyahacamat.net | (com.tr uzantılı e-posta ister misiniz?) |
 | Çalışma saatleri | Pzt–Cmt 09:00–18:00, Pazar kapalı | |
 
